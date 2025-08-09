@@ -1,0 +1,156 @@
+/* Additional navbar refinements */
+
+/* Improved focus states for better accessibility */
+.nav-link:focus, .dropdown-item:focus, .btn:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Better spacing for dropdown menus */
+.dropdown-menu .row {
+    margin: 0;
+    padding: 5px;
+}
+
+/* Enhanced dropdown headers */
+.dropdown-header {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 5px;
+}
+
+/* Consistent icon styling */
+.dropdown-item i, .nav-link i {
+    color: #666;
+    margin-right: 8px;
+}
+
+/* Improved search bar */
+.search-form {
+    max-width: 280px;
+}
+
+.search-form .form-control::placeholder {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* Logo container spacing */
+.navbar-brand {
+    padding: 0;
+    margin-right: 20px;
+}
+
+/* Better spacing in mobile view */
+@media (max-width: 991.98px) {
+    .navbar > .container {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    
+    .mobile-menu-icons {
+        margin-left: auto;
+    }
+    
+    .navbar-collapse {
+        margin-top: 10px;
+    }
+    
+    .dropdown-header {
+        padding-left: 0;
+        font-size: 13px;
+    }
+    
+    .search-form {
+        max-width: 100%;
+        margin: 12px 0;
+    }
+    
+    .mobile-account-section .dropdown-item {
+        padding: 10px 15px;
+    }
+}
+
+/* Improved contrast for better readability */
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Subtle hover effect for all interactive elements */
+.dropdown-item:hover, .nav-link:hover, .navbar-brand:hover {
+    opacity: 0.9;
+}
+
+/* Better spacing for account dropdown */
+.dropdown-menu-end {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+/* Improved mobile toggler */
+.navbar-toggler-icon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Better spacing for the entire navbar */
+.navbar > .container {
+    padding: 0 15px;
+}
+
+/* Subtle border for dropdown menu */
+.dropdown-menu {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Improved dropdown toggle spacing */
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+}
+
+/* Improved navbar collapse animation */
+.navbar-collapse {
+    transition: height 0.35s ease;
+}
+
+/* Subtle hover for search button */
+.search-form .btn:hover {
+    background-color: #f8f9fa;
+}
+
+/* Better spacing for dropdown items with icons */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Subtle divider effect between sections */
+@media (min-width: 992px) {
+    .navbar-nav .nav-item:not(:last-child) {
+        position: relative;
+    }
+}
+
+/* Improved spacing for nested dropdowns */
+.dropdown-menu .dropdown-menu {
+    margin-top: 0 !important;
+    margin-left: 10px !important;
+}
+
+/* Better active state for nav items */
+.nav-item.active .nav-link {
+    font-weight: 600;
+    color: #ff4757 !important;
+}
+
+/* Improved scrolled state for navbar */
+.navbar.scrolled .nav-link {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}

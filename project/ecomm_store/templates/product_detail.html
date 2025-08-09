@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    {% include "cdn.html" %}
+</head>
+<body>
+    <!-- Header -->
+    <div>
+        {% include "header.html" %}
+    </div>
+
+    <!-- Product Section -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col-md-6">
+                <div class="card product-image-container">
+                    <img src="{{ product.image.url }}" 
+                         class="product-main-image product-image" 
+                         alt="{{ product.name }}"
+                         id="mainImage">
+                    
+                    <div class="thumbnail-gallery">
+                        {% for image in product.images.all %}
+                        <img src="{{ image.url }}" 
+                             class="thumbnail {% if forloop.first %}active{% endif %}"
+                             alt="{{ product.name }} - view {{ forloop.counter }}"
+                             onclick="updateMainImage(this.src)">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-6 product-details">
+                <h1 class="mb-3 h2">{{ product.name }}</h1>
+                <p class="price-tag mb-4">${{ product.price }}</p>
+                <p class="mb-4 text-muted">{{ product.description }}</p>
+                <p class="text-muted">Stock: {{ product.stock }}</p>
+
+                <!-- Add to Cart Button -->
+                <div>
+                    {% if user.is_authenticated %}
+    {% if product in cart_items %}
+        <!-- Product is in the cart, show Go to Cart button -->
+        <a href="{% url 'cart_detail' %}" class="btn btn-success">Go to Cart</a>
+    {% else %}
+        {% if product.stock > 0 %}
+            <!-- Product is not in the cart and is in stock, show Add to Cart button -->
+            <form action="{% url 'add_to_cart' product.product_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
+        {% else %}
+            <!-- Product is out of stock, disable the button -->
+            <button class="btn btn-secondary" disabled>Out of Stock</button>
+        {% endif %}
+    {% endif %}
+{% else %}
+    <!-- User is not authenticated, show Login button -->
+    <a href="{% url 'login' %}" class="btn btn-primary">Add to Cart</a>
+{% endif %}
+                </div>
+
+                <!-- Product Description -->
+                <div class="card description-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Product Description</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div>
+        {% include "footer.html" %}
+    </div>
+
+    <script>
+
+        // Main Image Update Handler
+        function updateMainImage(src) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = src;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src === src) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

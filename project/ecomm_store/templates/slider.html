@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="custom-slider">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+            
+            <!-- Slide Indicators -->
+            <div class="carousel-indicators">
+                {% for slider in sliders %}
+                    <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></button>
+                {% endfor %}
+            </div>
+    
+            <!-- Slide Items -->
+            <div class="carousel-inner">
+                {% for slider in sliders %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <a href="{% url 'product_detail' product_id=slider.product.product_id %}">
+                            <img src="{{ slider.image.url }}" alt="{{ slider.product.name }}">
+                        </a>
+                        <div class="slide-content">
+                            <h2>{{ slider.product.name }}</h2>
+                            <p>{{ slider.product.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the carousel with custom options
+            const slider = new bootstrap.Carousel(document.querySelector('#mainSlider'), {
+                interval: 5000,  // Auto-slide interval (5 seconds)
+                touch: true,     // Enable touch swiping
+                wrap: true,      // Continuous loop
+                keyboard: true   // Enable keyboard navigation
+            });
+        
+            // Add touch swipe support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            const slider_element = document.querySelector('#mainSlider');
+            
+            slider_element.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+        
+            slider_element.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        
+            function handleSwipe() {
+                const swipeThreshold = 50; // minimum distance for a swipe
+                const swipeDistance = touchEndX - touchStartX;
+                
+                if (Math.abs(swipeDistance) > swipeThreshold) {
+                    if (swipeDistance > 0) {
+                        slider.prev(); // Swipe right
+                    } else {
+                        slider.next(); // Swipe left
+                    }
+                }
+            }
+
+            // Optional: Pause on hover
+            slider_element.addEventListener('mouseenter', () => {
+                slider.pause();
+            });
+
+            slider_element.addEventListener('mouseleave', () => {
+                slider.cycle();
+            });
+        });
+    </script>
+    
+</body>
+</html>

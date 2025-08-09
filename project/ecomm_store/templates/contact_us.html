@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    {% include "cdn.html" %}
+</head>
+<body>
+
+    <!-- header -->
+    <div>
+        {% include "header.html" %}
+    </div>
+    <!-- header -->
+
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Contact Us</h1>
+                <p class="text-center mb-5">Have a question? We're here to help!</p>
+                
+                <!-- Contact Information Cards -->
+                <div class="row mb-5">
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                                <h5 class="card-title">Phone</h5>
+                                <p class="card-text">1-800-123-4567</p>
+                                <p class="card-text small text-muted">Mon-Fri: 9AM-6PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                                <h5 class="card-title">Email</h5>
+                                <p class="card-text">support@example.com</p>
+                                <p class="card-text small text-muted">24/7 Online Support</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-location-dot fa-2x text-primary mb-3"></i>
+                                <h5 class="card-title">Address</h5>
+                                <p class="card-text">123 E-commerce St.<br>New York, NY 10001</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <div>
+        {% include "footer.html" %}
+    </div>
+    <!-- footer -->
+
+</body>
+</html>

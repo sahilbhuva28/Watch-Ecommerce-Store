@@ -1,0 +1,279 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background-color: #f8f9fa;
+        height: 100vh;
+      }
+
+      .signup-container {
+        max-width: 400px;
+        padding: 2rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .brand-logo {
+        width: 80px;
+        height: 80px;
+        background: #007bff;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+      }
+
+      .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .btn-signup {
+        background: #007bff;
+        border: none;
+        padding: 0.8rem;
+      }
+
+      .btn-signup:hover {
+        background: #0056b3;
+      }
+
+      .password-container {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: none;
+        color: #6c757d;
+        cursor: pointer;
+      }
+
+      .password-toggle:hover {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center">
+        <div class="col-12">
+          <div class="signup-container mx-auto">
+            <!-- Logo -->
+            <div class="brand-logo">
+              <i class="fas fa-user-plus"></i>
+            </div>
+
+            <!-- Title -->
+            <h4 class="text-center mb-4">Create Account</h4>
+
+            <!-- Signup Form -->
+            <form method="post" action="{% url 'sign_up' %}">
+              {% csrf_token %}
+
+              <!-- Name Fields -->
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    class="form-control"
+                    id="firstName"
+                    placeholder="John"
+                    required
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    class="form-control"
+                    id="lastName"
+                    placeholder="Doe"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    name="password1"
+                    name="password1"
+                    class="form-control"
+                    id="password"
+                    placeholder="Create a strong password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('password', 'toggleIcon')"
+                  >
+                    <i class="fas fa-eye" id="toggleIcon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label"
+                  >Confirm Password</label
+                >
+                <div class="password-container">
+                  <input
+                    type="password"
+                    name="password2"
+                    class="form-control"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('confirmPassword', 'toggleIconConfirm')"
+                  >
+                    <i class="fas fa-eye" id="toggleIconConfirm"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-signup text-white w-100">
+                Sign Up
+              </button>
+            </form>
+
+            <!-- Login Link -->
+            <p class="text-center mt-4 mb-0">
+              Already have an account?
+              <a href="{% url 'login'%}" class="text-decoration-none">Log In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      class="position-fixed top-0 end-0 p-3"
+      style="z-index: 1100"
+    >
+      <div id="toast-container">
+        {% if messages %} {% for message in messages %}
+        <div
+          class="toast align-items-center text-white border-0 mb-2 {% if 'error' in message.tags %}bg-danger {% elif 'success' in message.tags %}bg-success {% elif 'warning' in message.tags %}bg-warning {% elif 'info' in message.tags %}bg-info {% else %}bg-secondary{% endif %}"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-bs-delay="4000"
+        >
+          <div class="d-flex">
+            <div class="toast-body fw-semibold">{{ message }}</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+
+    <!-- Font Awesome CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Bootstrap Bundle JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toast Auto Show Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toasts = document.querySelectorAll(".toast");
+        toasts.forEach((toastEl) => {
+          new bootstrap.Toast(toastEl).show();
+        });
+      });
+
+      // Password Toggle Function (unchanged)
+      function togglePassword(inputId, iconId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("fa-eye");
+          toggleIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("fa-eye-slash");
+          toggleIcon.classList.add("fa-eye");
+        }
+      }
+    </script>
+
+    <!-- Font Awesome CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Bootstrap Bundle JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Password Toggle Script -->
+    <script>
+      function togglePassword(inputId, iconId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("fa-eye");
+          toggleIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("fa-eye-slash");
+          toggleIcon.classList.add("fa-eye");
+        }
+      }
+    </script>
+  </body>
+</html>
