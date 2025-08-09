@@ -1,6 +1,3 @@
-Alright — here’s your `README.md` with **all commands and credentials inside proper fenced code boxes** so it’s neat and GitHub-friendly:
-
-````markdown
 # 🛥 Watch E-Commerce Store (Django + Jazzmin)
 
 A fully functional e-commerce platform built with **Django** and enhanced with **django-jazzmin** for a modern, sleek admin panel.  
@@ -88,5 +85,6 @@ Admin:   http://127.0.0.1:8000/admin/
 
 📸 **Admin Panel Preview (django-jazzmin)**
 The admin panel comes with a modern dashboard, quick navigation, and responsive UI — making it easier for you to manage products and orders.
+
 
 
